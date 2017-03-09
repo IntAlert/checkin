@@ -1,0 +1,5 @@
+# Dependencies
+app/node_modules/
+
+#Config
+app/lib/config.json

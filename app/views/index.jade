@@ -1,0 +1,22 @@
+extends layout
+
+block content
+	h1= title
+
+	div(ng-controller="SwitchboardContoller")
+
+		md-list(ng-cloak)
+
+			md-list-item(
+				ng-repeat="user in data.users"
+				class="{{user.in ? 'person-in' : 'person-out'}}"
+			)
+				p {{ user.displayName }}
+				md-switch(
+					ng-change="doSomething()"
+					ng-model="user.in"
+					aria-label="Switch 2"
+					ng-true-value="true"
+					ng-false-value="false"
+					class="md-warn"
+				) {{user.in ? 'In' : 'Out'}}
