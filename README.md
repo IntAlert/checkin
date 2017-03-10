@@ -1,7 +1,7 @@
-Sign-in book for Alert
-===
+# Sign-in book for Alert
 
-#Local development
+
+## Local development
 
 0. `cd app`
 1. `npm install`
