@@ -1,7 +1,12 @@
 # Sign-in book for Alert
 
 
+
+
 ## Local development
+
+Requirements
+- *nodemon* `npm install -g nodemon`
 
 0. `cd app`
 1. `npm install`
