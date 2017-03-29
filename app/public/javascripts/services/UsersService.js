@@ -3,7 +3,7 @@ app.factory('UsersService', function($http) {
 	var instance = {};
 
 	instance.getAll = function() {
-		return $http.get('/users')
+		return $http.get('/users/all')
 			.then(function(response){
 
 				return sortLastAndFirst(response.data);

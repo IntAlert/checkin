@@ -5,7 +5,7 @@
 
 var request = require('request');
 var Q = require('q');
-var config = require('./config.js');
+var config = require('../config/office365.js');
 
 // The auth module object.
 var auth = {};
