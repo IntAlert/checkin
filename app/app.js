@@ -13,6 +13,7 @@ var app = express();
 // Load routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var entries = require('./routes/entries');
 var auth = require('./routes/auth');
 
 // view engine setup
@@ -35,6 +36,7 @@ auth(app)
 // routes
 app.use('/', routes);
 app.use('/users', users);
+app.use('/entries', entries);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
