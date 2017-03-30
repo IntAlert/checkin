@@ -11,7 +11,7 @@ router.get('/dashboard', function(req, res) {
 	if (!req.user.loggedIn) {
 		res.status(401).send('Not Authorised');
 	} else {
-		res.render('users/dashboard', { title: 'International-Alert checkin' });	
+		res.render('users/dashboard', { title: 'International-Alert Sign In Book' });	
 	}
 
 })

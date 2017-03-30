@@ -4,6 +4,7 @@ app.factory('EntriesService', function($http) {
 
 	instance.getAllInToday = function() {
 		return $http.get('/entries/all_in_today')
+			.then(response => response.data)
 	}
 
 	instance.signIn = function(ad_id) {
