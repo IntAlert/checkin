@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var session = require('express-session')
+var cookieSession = require('cookie-session')
 var sessionConfig = require('./config/session');
 
 
@@ -27,7 +27,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session(sessionConfig));
+app.use(cookieSession({
+  name: 'alert-sign-in',
+  keys: [process.env.COOKIE_KEY_1, process.env.COOKIE_KEY_2, process.env.COOKIE_KEY_3]
+}))
 
 // load Auth
 auth(app)

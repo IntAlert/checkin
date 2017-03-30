@@ -36,5 +36,4 @@ Requirements
 
 ###Todo
 - secure all endpoints
-- move session to database, check session lifetime
 - deploy to Azure
