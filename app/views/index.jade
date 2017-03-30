@@ -1,8 +1,7 @@
 extends layout
 
 block content
-	h1= title
+	div.login
 
-	div()
-
-		a(href="/auth/login") Login
+		p In order to show all users, you must login. Anyone at Alert can do this.
+		a(href="/auth/login").md-button.md-primary.md-raised Login with your Office 365 account

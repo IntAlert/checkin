@@ -8,7 +8,7 @@ var roles = require('../config/authorisation')
 
 router.get('/dashboard', roles.can('access dashboard'), (req, res) => {
 		
-	res.render('users/dashboard');	
+	res.render('users/dashboard', { title: ' Please tap your name to sign in/out' });	
 
 })
 
