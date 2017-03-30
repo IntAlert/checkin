@@ -8,19 +8,27 @@
 Requirements
 - *nodemon* `npm install -g nodemon`
 
-0. `cd app`
-1. `npm install`
-2. `bower install`
-3. Create app/lib/config.js
+1. `cd app`
+2. `npm install`
+3. `bower install`
+4. Create app/config/office365.js
 	```
 		// Application credentials from the Azure Management Portal.
-		module.exports = {
-		  clientId: '***',
-		  clientSecret: '***',
-		  tokenEndpoint: '***',
-		  groupId: '***'
-		};
-
+	module.exports = {
+	  tenantId: '*',
+	  clientId: '*',
+	  clientSecret: '*',
+	  tokenEndpoint: '*',
+	  groupId: '*'
+	};
 	```
-4. `npm run dev`
-5. Visit `http://127.0.0.1:3000/`
+5. Create app/config/session.js
+	```
+	module.exports = {
+	  secret: 'keyboard cat',
+	  resave: false,
+	  saveUninitialized: true
+	}
+	```
+6. `npm run dev`
+7. Visit `http://127.0.0.1:3000/`
