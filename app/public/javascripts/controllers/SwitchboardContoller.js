@@ -1,4 +1,4 @@
-app.controller('SwitchboardContoller', function ($scope, $window, $document, $location, UsersService) {
+app.controller('SwitchboardContoller', function ($scope, $window, $document, $location, UsersService, EntriesService) {
 
 
 	// User-generated data
@@ -20,8 +20,9 @@ app.controller('SwitchboardContoller', function ($scope, $window, $document, $lo
 
 	}, true)
 
-	$scope.doSomething = function(){
-		// console.log('harrow')
+	$scope.toggle = function(user){
+		if (user.in) EntriesService.signIn(user.id)
+		else EntriesService.signOut(user.id)
 	}
 
 	

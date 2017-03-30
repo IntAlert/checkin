@@ -16,7 +16,7 @@ block content
 			)
 				p {{ user.displayName }}
 				md-switch(
-					ng-change="doSomething()"
+					ng-change="toggle(user)"
 					ng-model="user.in"
 					aria-label="Switch 2"
 					ng-true-value="true"
