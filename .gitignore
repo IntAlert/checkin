@@ -3,3 +3,6 @@ app/node_modules/
 
 #Config
 .env
+
+# Local
+.DS_Store

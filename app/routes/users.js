@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-var auth = require('../lib/auth.js');
-var graph = require('../lib/graph.js');
+var auth = require('../lib/o365/auth.js');
+var graph = require('../lib/o365/graph.js');
 var config = require('../config/office365.js');
 var roles = require('../config/authorisation')
 
