@@ -3,5 +3,3 @@ app/node_modules/
 
 #Config
 .env
-app/config/office365.js
-app/config/session.js
