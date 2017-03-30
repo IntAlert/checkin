@@ -22,5 +22,5 @@ Requirements
 		};
 
 	```
-4. `nodemon`
+4. `npm run dev`
 5. Visit `http://127.0.0.1:3000/`
