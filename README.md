@@ -32,3 +32,9 @@ Requirements
 	```
 6. `npm run dev`
 7. Visit `http://127.0.0.1:3000/`
+
+
+###Todo
+- secure all endpoints
+- move session to database, check session lifetime
+- deploy to Azure
