@@ -23,13 +23,11 @@ module.exports = function(app) {
 		
 	passport.serializeUser(function(user, done) {
 		
-		console.log('serializeUser');
 		done(null, 1);
 	});
 
 	passport.deserializeUser(function(id, done) {
 
-		console.log('deserializeUser');
 		var user = {
 			loggedIn: true
 		}

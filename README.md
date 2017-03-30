@@ -22,18 +22,9 @@ Requirements
 	  groupId: '*'
 	};
 	```
-5. Create app/config/session.js
-	```
-	module.exports = {
-	  secret: 'keyboard cat',
-	  resave: false,
-	  saveUninitialized: true
-	}
-	```
 6. `npm run dev`
 7. Visit `http://127.0.0.1:3000/`
 
 
 ###Todo
-- secure all endpoints
 - deploy to Azure

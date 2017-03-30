@@ -4,9 +4,9 @@ var router = express.Router();
 var auth = require('../lib/auth.js');
 var graph = require('../lib/graph.js');
 var config = require('../config/office365.js');
+var roles = require('../config/authorisation')
 
-
-router.get('/dashboard', function(req, res) {
+router.get('/dashboard', roles.can('access dashboard'), function(req, res) {
 	
 	if (!req.user.loggedIn) {
 		res.status(401).send('Not Authorised');
@@ -17,14 +17,11 @@ router.get('/dashboard', function(req, res) {
 })
 
 /* GET users listing. */
-router.get('/all', function(req, res, next) {
+router.get('/all', roles.can('access dashboard'), function(req, res, next) {
 
-	if (!req.user.loggedIn) {
-		res.status(401).send('Not Authorised');
-	} else {
 
-	  auth.getAccessToken().then(function (token) {
-	  // Get all of the users in the tenant.
+	auth.getAccessToken().then(token =>  {
+	// Get all of the users in the tenant.
 		graph.getGroupUsers(token, config.groupId)
 			.then(function (users) {
 			// 		// Create an event on each user's calendar.
@@ -35,7 +32,7 @@ router.get('/all', function(req, res, next) {
 			}, function (error) {
 			// 	console.error('>>> Error getting access token: ' + error);
 			});
-	}
+
 
 });
 

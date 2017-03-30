@@ -2,15 +2,12 @@ var express = require('express');
 var router = express.Router();
 var models  = require('../models');
 var moment = require('moment');
+var roles = require('../config/authorisation')
 
 
 
 // Check In
-router.post('/in', function(req, res) {
-	
-	// if (!req.user.loggedIn) {
-	// 	res.status(401).send('Not Authorised');
-	// } else {
+router.post('/in', roles.can('access dashboard'), function(req, res) {
 
 	var newEntry = {
 		ad_id: req.body.ad_id,
@@ -24,12 +21,10 @@ router.post('/in', function(req, res) {
 			res.json(entry)
 	})
 
-	// }
-
 })
 
 // Check Out
-router.post('/out', function(req, res) {
+router.post('/out', roles.can('access dashboard'), function(req, res) {
 	
 	// if (!req.user.loggedIn) {
 	// 	res.status(401).send('Not Authorised');
@@ -75,7 +70,7 @@ router.post('/out', function(req, res) {
 })
 
 // Check Out
-router.get('/all_in_today', function(req, res) {
+router.get('/all_in_today', roles.can('access dashboard'), function(req, res) {
 	
 	// if (!req.user.loggedIn) {
 	// 	res.status(401).send('Not Authorised');
