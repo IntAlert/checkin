@@ -6,7 +6,11 @@ html
 		link(rel='stylesheet', href='/stylesheets/style.css')
 	body
 		div(ng-app="signinbook")
-			block content
+			header
+				img.logo(src="/images/logo.png")
+				h1 Please tap your name to sign in/out
+			div.content
+				block content
 
 	script(src='/components/angular/angular.min.js')
 	script(src='/components/angular-messages/angular-messages.min.js')

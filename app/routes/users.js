@@ -6,13 +6,9 @@ var graph = require('../lib/o365/graph.js');
 var config = require('../config/office365.js');
 var roles = require('../config/authorisation')
 
-router.get('/dashboard', roles.can('access dashboard'), function(req, res) {
-	
-	if (!req.user.loggedIn) {
-		res.status(401).send('Not Authorised');
-	} else {
-		res.render('users/dashboard', { title: 'International-Alert Sign In Book' });	
-	}
+router.get('/dashboard', roles.can('access dashboard'), (req, res) => {
+		
+	res.render('users/dashboard');	
 
 })
 
