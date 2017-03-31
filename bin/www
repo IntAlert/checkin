@@ -7,13 +7,20 @@
 var app = require('../app');
 var debug = require('debug')('app:server');
 var http = require('http');
-var path = require('path');
+
+
+
+
+// Configure Umzug for migrations
 var models = require("../models");
 var Umzug = require('umzug');
 var umzug = new Umzug({
   sequelize: models.sequelize, 
   migrations: {
-    params: [models.sequelize.getQueryInterface(), models.Sequelize]
+    params: [
+      models.sequelize.getQueryInterface(), 
+      models.Sequelize
+    ]
   }
 });
 
@@ -36,6 +43,10 @@ var server = http.createServer(app);
 
 // migrate and start server
 umzug.up().then(function (migrations) { 
+
+  console.log('Completed the following migrations');
+  console.log(migrations);
+
   server.listen(port);
   server.on('error', onError);
   server.on('listening', onListening);

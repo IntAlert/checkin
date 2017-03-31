@@ -6,12 +6,22 @@ html
 		link(rel='stylesheet', href='/stylesheets/style.css')
 	body
 		div(ng-app="signinbook")
-			header
-				img.logo(src="/images/logo.png")
-				h1= title
+			header(
+				layout="row"
+				ng-controller="HeaderController"
+				ng-cloak
+			)
+				div(flex=25)
+					img.logo(src="/images/logo.png")
+				div(flex=50)
+					h1= title
+				div(flex=25)
+					div.time {{time}}
+					div.date {{date}}
 			div.content
 				block content
 
+	script(src='/components/moment/min/moment.min.js')
 	script(src='/components/angular/angular.min.js')
 	script(src='/components/angular-messages/angular-messages.min.js')
 	script(src='/components/angular-aria/angular-aria.min.js')
@@ -21,4 +31,5 @@ html
 	script(src='/javascripts/app.js')
 	script(src='/javascripts/services/UsersService.js')
 	script(src='/javascripts/services/EntriesService.js')
-	script(src='/javascripts/controllers/SwitchboardContoller.js')
+	script(src='/javascripts/controllers/HeaderController.js')
+	script(src='/javascripts/controllers/DashboardController.js')
