@@ -1,14 +1,7 @@
 # Sign-in book for Alert
 
 
-## Deployment
-cf. https://docs.microsoft.com/en-us/azure/app-service-web/app-service-web-nodejs-get-started
-- Create MySQL server. Record connection details
-- Follow these [instructions from Microsoft](https://docs.microsoft.com/en-us/azure/app-service-web/app-service-web-nodejs-get-started)
-- ```git push azure master```
-- Add all environment variables to "Application Settings" in Azure Portal (see .env below)
-
-## Local development
+## Development
 
 Requirements
 - *nodemon* `npm install -g nodemon`
@@ -38,7 +31,10 @@ Requirements
 7. Visit `http://127.0.0.1:3000/`
 
 
-###Todo
-- deploy to Azure
-
-MySQL cost £3.72/month
+## Deployment
+cf. https://docs.microsoft.com/en-us/azure/app-service-web/app-service-web-nodejs-get-started
+1. Create MySQL server. Record connection details
+2. Add all environment variables to "Application Settings" in Azure Portal (see .env above)
+3. Log in to az using the CLI: `az login`
+4. git remote add azure https://asmt3@alertcheckin.scm.azurewebsites.net/alertcheckin.git
+5. `git push azure`
