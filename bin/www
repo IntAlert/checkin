@@ -1,11 +1,5 @@
 #!/usr/bin/env node
 
-
-// Migrate database using sequelize CLI
-var execSync = require('child_process').execSync;
-var cmd = './node_modules/sequelize-cli/bin/sequelize "db:migrate"';
-execSync(cmd, {stdio:[0,1,2]}); // output results to console
-
 /**
  * Module dependencies.
  */
@@ -13,6 +7,15 @@ execSync(cmd, {stdio:[0,1,2]}); // output results to console
 var app = require('../app');
 var debug = require('debug')('app:server');
 var http = require('http');
+var path = require('path');
+
+// Migrate database using sequelize CLI
+var execSync = require('child_process').execSync;
+var cmd = './node_modules/sequelize-cli/bin/sequelize';
+var args = ['"db:migrate"'];
+execSync(path.resolve(cmd) + " " + args.join(' '), {stdio:[0,1,2]}); // output results to console
+
+
 
 /**
  * Get port from environment and store in Express.
