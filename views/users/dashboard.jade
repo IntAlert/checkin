@@ -19,5 +19,5 @@ block content
 					ng-click="showConfirm($event, user)"
 				)
 					p(flex="70") {{ user.displayName }}
-					p(flex="15") ~
+					p(flex="15") {{ user.updatedAt | date:'HH:mm:ss' }}
 					p.status(flex="15") {{user.in ? 'In' : 'Out'}}

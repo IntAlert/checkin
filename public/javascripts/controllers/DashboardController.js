@@ -59,10 +59,22 @@ app.controller('DashboardContoller', function ($scope, $window, $document, $loca
 
 
 	var pollEntryStatus = function() {
-		EntriesService.getAllInToday().then(userIds => {
+		EntriesService.getStatuses().then(statuses => {
 			for (var i = $scope.data.users.length - 1; i >= 0; i--) {
-				var userIsIn = userIds.indexOf($scope.data.users[i].id) > -1
-				$scope.data.users[i].in = userIsIn
+
+				var statusToday = statuses.filter(function(s){
+					return s.ad_id == $scope.data.users[i].id
+				})
+
+				if (statusToday.length) {
+					// update status
+					$scope.data.users[i].in = statusToday[0].in
+					$scope.data.users[i].updatedAt = statusToday[0].updatedAt
+				} else {
+					// no status today
+					$scope.data.users[i].in = false;
+					$scope.data.users[i].updatedAt = null
+				}
 			}
 		})	
 	}

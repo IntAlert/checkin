@@ -90,6 +90,10 @@ router.get('/statuses', roles.can('access dashboard'), function(req, res) {
 	models.Entry.findAll(query)
 	.then(entries => {
 
+
+		// would normally be deduping in MySQL using groups
+		// must seem to have a problem with query
+		// ONLY_FULL_GROUP_BY=1 might be issue
 		var entriesDeduped = []
 
 		// remove double entries
@@ -111,7 +115,7 @@ router.get('/statuses', roles.can('access dashboard'), function(req, res) {
 		// could have been done above but this is more obv
 		var response = entriesDeduped.map(entry => {
 			return {
-				ad_id: entry.id,
+				ad_id: entry.ad_id,
 				in: (entry.out == null),
 				updatedAt: entry.updatedAt
 			}

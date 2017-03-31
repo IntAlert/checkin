@@ -2,8 +2,8 @@ app.factory('EntriesService', function($http) {
 
 	var instance = {};
 
-	instance.getAllInToday = function() {
-		return $http.get('/entries/all_in_today')
+	instance.getStatuses = function() {
+		return $http.get('/entries/statuses')
 			.then(response => response.data)
 	}
 
