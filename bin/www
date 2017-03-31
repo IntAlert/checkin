@@ -3,7 +3,7 @@
 
 // Migrate database using sequelize CLI
 var execSync = require('child_process').execSync;
-var cmd = 'node_modules/sequelize-cli/bin/sequelize db:migrate;';
+var cmd = './node_modules/sequelize-cli/bin/sequelize "db:migrate"';
 execSync(cmd, {stdio:[0,1,2]}); // output results to console
 
 /**
