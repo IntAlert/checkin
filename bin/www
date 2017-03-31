@@ -11,9 +11,13 @@ var path = require('path');
 
 // Migrate database using sequelize CLI
 var execSync = require('child_process').execSync;
-var cmd = './node_modules/sequelize-cli/bin/sequelize';
-var args = ['"db:migrate"'];
-execSync(path.resolve(cmd) + " " + args.join(' '), {stdio:[0,1,2]}); // output results to console
+var cmd = 'node';
+var args = [
+  path.resolve("./node_modules/sequelize-cli/bin/sequelize"),
+  'db:migrate'
+];
+// console.log('node "' + args.join(' ') + '"');
+execSync('node ' + args.join(' '), {stdio:[0,1,2]}); // output results to console
 
 
 
