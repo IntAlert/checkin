@@ -5,18 +5,27 @@ var AzureAdOAuth2Strategy = require('passport-azure-ad-oauth2').Strategy;
 
 module.exports = function(app) {
 
+
+	// determine callback URL
+	if(process.env.NODE_ENV == 'development') {
+		var callbackURL = 'http://127.0.0.1:3000/auth/callback';
+	} else {
+		var callbackURL = 'http://alertcheckin.azurewebsites.net/auth/callback';
+	}
+	
+
+
+
 	passport.use(new AzureAdOAuth2Strategy({
 	  clientID: office365Config.clientId,
 	  clientSecret: office365Config.clientSecret,
-	  callbackURL: 'http://127.0.0.1:3000/auth/callback',
+	  callbackURL: callbackURL,
 	  resource: 'https://graph.windows.net/',
 	  tenant: office365Config.tenantId
 	},
 	function (accessToken, refresh_token, params, profile, done) {
 
-	console.log('profile');
-	console.log(profile);
-	  done(null, profile);
+		done(null, profile);
 
 	}));
 
