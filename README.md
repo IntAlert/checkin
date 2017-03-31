@@ -5,11 +5,12 @@
 
 Requirements
 - *nodemon* `npm install -g nodemon`
+- *Azure CLI* `npm install -g azure-cli`
 
 
-2. `npm install`
-3. `bower install`
-4. Create `.env` file in this directory. Add key-value pairs to match required server/API configs.
+1. `npm install`
+2. `bower install`
+3. Create `.env` file in this directory. Add key-value pairs to match required server/API configs.
 	```
 	RDS_HOSTNAME=*
 	RDS_USERNAME=*
@@ -27,8 +28,8 @@ Requirements
 	O365_TOKEN_ENDPOINT=*
 	O365_GROUP_ID=*
 	```
-6. `npm run dev`
-7. Visit `http://127.0.0.1:3000/`
+4. `npm run dev`
+5. Visit `http://127.0.0.1:3000/`
 
 
 ## Deployment
