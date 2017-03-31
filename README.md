@@ -6,6 +6,7 @@ cf. https://docs.microsoft.com/en-us/azure/app-service-web/app-service-web-nodej
 - Create MySQL server. Record connection details
 - Follow these [instructions from Microsoft](https://docs.microsoft.com/en-us/azure/app-service-web/app-service-web-nodejs-get-started)
 - ```git push azure master```
+- Add all environment variables to "Application Settings" in Azure Portal (see .env below)
 
 ## Local development
 
