@@ -1,14 +1,18 @@
 # Sign-in book for Alert
 
 
-
+## Deployment
+cf. https://docs.microsoft.com/en-us/azure/app-service-web/app-service-web-nodejs-get-started
+- Create MySQL server. Record connection details
+- Follow these [instructions from Microsoft](https://docs.microsoft.com/en-us/azure/app-service-web/app-service-web-nodejs-get-started)
+- ```git push azure master```
 
 ## Local development
 
 Requirements
 - *nodemon* `npm install -g nodemon`
 
-1. `cd app`
+
 2. `npm install`
 3. `bower install`
 4. Create `.env` file in this directory. Add key-value pairs to match required server/API configs.
@@ -35,3 +39,5 @@ Requirements
 
 ###Todo
 - deploy to Azure
+
+MySQL cost £3.72/month

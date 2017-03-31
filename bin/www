@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+
+// Migrate database using sequelize CLI
+var execSync = require('child_process').execSync;
+var cmd = 'sequelize db:migrate;';
+execSync(cmd, {stdio:[0,1,2]}); // output results to console
+
 /**
  * Module dependencies.
  */
