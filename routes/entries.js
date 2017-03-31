@@ -70,29 +70,54 @@ router.post('/out', roles.can('access dashboard'), function(req, res) {
 })
 
 // Check Out
-router.get('/all_in_today', roles.can('access dashboard'), function(req, res) {
+router.get('/statuses', roles.can('access dashboard'), function(req, res) {
 	
-	// if (!req.user.loggedIn) {
-	// 	res.status(401).send('Not Authorised');
-	// } else {
 
-	// find any incomplete entry
+	// find most recent statuses today, if any
 
 
-	var allInQuery = {
-		date: moment().format('YYYY-MM-DD'),
-		out: null
+	var query = {
+		where: {
+			date: moment().format('YYYY-MM-DD'),	
+		},
+		order: [
+			// (*) this makes sure that we can easily
+			// return latest status
+			['updatedAt', 'DESC'] 
+		]
 	};
 
-	models.Entry.findAll({
-		where: allInQuery
-	})
+	models.Entry.findAll(query)
 	.then(entries => {
 
-		// produce array of ad_id's who are in
-		var responses = entries.map(entry => entry.ad_id)
+		var entriesDeduped = []
 
-		res.json(responses)
+		// remove double entries
+		// in favour of most recent
+		// see (*) above
+
+		var idsSeen = []
+
+		entries.map(entry => {
+			if (idsSeen.indexOf(entry.ad_id) == -1) {
+				// we only want the most recent status for the day
+				entriesDeduped.push(entry)
+			}
+			idsSeen.push(entry.ad_id)
+		})
+
+
+		// prepare response
+		// could have been done above but this is more obv
+		var response = entriesDeduped.map(entry => {
+			return {
+				ad_id: entry.id,
+				in: (entry.out == null),
+				updatedAt: entry.updatedAt
+			}
+		})
+
+		res.json(response)
 
 	})
 
