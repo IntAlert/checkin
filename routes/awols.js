@@ -48,4 +48,21 @@ router.post('/delete', roles.can('access admin'), function(req, res) {
 
 })
 
+// Export all
+router.get('/all', roles.can('access admin'), function(req, res) {
+	
+	var lastMonthAwolQuery = {
+		date: {
+			$gt: moment().subtract(1,'months').format('YYYY-MM-DD'),	
+		}
+	}
+
+	models.Awol.findAll({
+		where: lastMonthAwolQuery
+	})
+	.then(awols => {
+		res.json(awols)
+	})
+})
+
 module.exports = router;

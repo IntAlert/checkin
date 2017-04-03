@@ -10,7 +10,7 @@ router.get('/all', roles.can('access admin'), function(req, res) {
 	
 	var allMembers = members.getAll()
 	var allEntries = models.Entry.findAll({
-		// fields: []
+		fields: ['ad_id'],
 		where: {
 			date: req.query.date // expects MySQL date
 		}
@@ -19,9 +19,8 @@ router.get('/all', roles.can('access admin'), function(req, res) {
 
 	Promise.all([allMembers, allEntries])
 		.then(values => {
-			var allMembers = values[0]
-			var allEntries = values[1]
-
+			var allMembers = values[0];
+			var allEntries = values[1];
 
 			var absenses = allMembers.filter(function(member){
 				
