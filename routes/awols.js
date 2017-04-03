@@ -3,8 +3,9 @@ var router = express.Router();
 var models  = require('../models');
 var moment = require('moment');
 var roles = require('../config/authorisation')
+var csv = require('express-csv')
 
-
+var members = require('../lib/o365/members.js');
 
 // Check In
 router.post('/create', roles.can('access admin'), function(req, res) {
@@ -52,17 +53,55 @@ router.post('/delete', roles.can('access admin'), function(req, res) {
 router.get('/all', roles.can('access admin'), function(req, res) {
 	
 	var lastMonthAwolQuery = {
-		date: {
-			$gt: moment().subtract(1,'months').format('YYYY-MM-DD'),	
-		}
+		where: {
+			date: {
+				$gt: moment().subtract(1,'months').format('YYYY-MM-DD'),	
+			}	
+		},
+		order: 'date ASC'
+		
 	}
 
-	models.Awol.findAll({
-		where: lastMonthAwolQuery
-	})
-	.then(awols => {
-		res.json(awols)
-	})
+
+	var getAllAwols = models.Awol.findAll(lastMonthAwolQuery)
+
+	var getAllMembers = members.getAll()
+
+	Promise.all([getAllAwols, getAllMembers])
+		.then(values => {
+
+			console.log(values)
+			
+			var allAwols = values[0]
+			var allMembers = values[1]
+			// once we have both, we need to decorate Awols with user data
+			var awolsDecorated = []
+
+			allAwols.forEach(function(awol){
+				var userData = allMembers.find(member => {
+					return member.id == awol.ad_id
+				})
+
+				// just in case o365 did not provide a member with this id
+				if (userData) { 
+					// add date
+					userData.date = awol.date
+					awolsDecorated.push(userData)
+				}
+				
+			})
+
+			// produce an array CSV 
+			var awolsDecoratedCsv = awolsDecorated.map(function(member){
+				return [
+					member.date,
+					member.displayName,
+					member.mail
+				]
+			})
+			res.csv(awolsDecoratedCsv)
+		})
+	
 })
 
 module.exports = router;
