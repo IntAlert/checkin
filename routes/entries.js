@@ -25,10 +25,6 @@ router.post('/in', roles.can('access dashboard'), function(req, res) {
 
 // Check Out
 router.post('/out', roles.can('access dashboard'), function(req, res) {
-	
-	// if (!req.user.loggedIn) {
-	// 	res.status(401).send('Not Authorised');
-	// } else {
 
 	// find any incomplete entry
 
@@ -69,7 +65,8 @@ router.post('/out', roles.can('access dashboard'), function(req, res) {
 
 })
 
-// Check Out
+// All statuses today
+// only returns statuses of users we know about
 router.get('/statuses', roles.can('access dashboard'), function(req, res) {
 	
 

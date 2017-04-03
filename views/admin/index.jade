@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+
+	div(ng-controller="AdminController")
+
+
+		div()
+			md-datepicker(
+				ng-model="data.start" 
+				md-placeholder="Start Date"
+			)
+
+			md-datepicker(
+				ng-model="data.end" 
+				md-placeholder="End Date"
+			)

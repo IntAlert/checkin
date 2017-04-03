@@ -13,7 +13,11 @@ var app = express();
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var entries = require('./routes/entries');
+var absenses = require('./routes/absenses');
+var awols = require('./routes/awols');
+
 var auth = require('./routes/auth');
+var admin = require('./routes/admin');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,6 +43,9 @@ auth(app)
 app.use('/', routes);
 app.use('/users', users);
 app.use('/entries', entries);
+app.use('/awols', awols);
+app.use('/admin', admin);
+app.use('/absenses', absenses);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
