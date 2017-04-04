@@ -2,6 +2,7 @@ var express = require('express');
 var office365Config = require('../config/office365');
 var passport = require('passport')
 var AzureAdOAuth2Strategy = require('passport-azure-ad-oauth2').Strategy;
+var members = require('../lib/o365/members.js');
 
 module.exports = function(app) {
 

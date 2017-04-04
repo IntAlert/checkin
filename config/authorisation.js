@@ -15,7 +15,8 @@ roles.use('access dashboard', function (req) {
 
 // // admin
 roles.use('access admin', function (req) {
-  return true; //req.user && req.user.loggedIn
+
+  return req.user && req.user.isAdmin
 })
 
 // roles.use('access admin app unapproved', function (req) {

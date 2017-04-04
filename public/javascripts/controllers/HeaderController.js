@@ -1,11 +1,11 @@
-app.controller('HeaderController', function ($scope) {
+app.controller('HeaderController', function ($scope, $interval) {
 
 	// User-generated data
-	$scope.time = $scope.date = ""
+	$scope.currentTime = $scope.currentDate = ""
 
-	setInterval(function(){
-		$scope.date = moment().format('MMMM Do YYYY')
-		$scope.time = moment().format('hh:mm:ss a')
+	$interval(function(){
+		$scope.currentDate = moment().format('MMMM Do YYYY')
+		$scope.currentTime = moment().format('hh:mm:ss a')
 	}, 1000)
 
 
