@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var members = require('../lib/o365/members.js');
-var roles = require('../config/authorisation')
+var roles = require('../config/authorisation');
 
 router.get('/dashboard', roles.can('access dashboard'), (req, res) => {
 		
