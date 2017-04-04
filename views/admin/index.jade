@@ -7,11 +7,21 @@ block content
 
 		div()
 			md-datepicker(
-				ng-model="data.start" 
-				md-placeholder="Start Date"
+				ng-model="data.date" 
+				md-placeholder="Select a date"
 			)
 
-			md-datepicker(
-				ng-model="data.end" 
-				md-placeholder="End Date"
-			)
+			md-list(ng-hide="data.loading")
+				md-list-item(
+
+					ng-repeat="user in data.usersAbsent"
+				)
+					div.person(
+						layout="row"
+						flex
+						ng-click="showConfirm($event, user)"
+					)
+
+						p(flex="70") {{ user.displayName }}
+						p(flex="10") {{ user.id }}
+						p(flex="10") {{ user.awol ? 'Unexplained' : 'Normal' }}

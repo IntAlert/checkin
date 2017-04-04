@@ -49,8 +49,30 @@ router.post('/delete', roles.can('access admin'), function(req, res) {
 
 })
 
+// Get all Awols by date
+// Just return ad_ids
+router.get('/byDate', roles.can('access admin'), function(req, res) {
+	
+	var dateQuery = {
+		where: {
+			date: req.query.date // expects MySQL
+		}
+	}
+
+
+	var getAllAwols = models.Awol.findAll(dateQuery)
+
+	getAllAwols.then(awols => {
+		var ad_ids = awols.map(awol => {
+			return awol.ad_id
+		})
+		res.json(ad_ids)
+	})
+	
+})
+
 // Export all
-router.get('/all', roles.can('access admin'), function(req, res) {
+router.get('/lastMonthCsv', roles.can('access admin'), function(req, res) {
 	
 	var lastMonthAwolQuery = {
 		where: {
