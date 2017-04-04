@@ -9,21 +9,30 @@ var csv = require('express-csv')
 // Return all absent
 router.get('/all', roles.can('access admin'), function(req, res) {
 	
-	var allMembers = members.getAll()
-	var allEntries = models.Entry.findAll({
-		fields: ['ad_id'],
-		where: {
-			date: req.query.date // expects MySQL date
-		}
-	})
+	var promises = [
+		members.getAll(),
+		models.Entry.findAll({
+			fields: ['ad_id'],
+			where: {
+				date: req.query.date // expects MySQL date
+			}
+		}),
+		models.Awol.findAll({
+			where: {
+				date: req.query.date // expects MySQL
+			}
+		})
+	];
 
 
-	Promise.all([allMembers, allEntries])
+	Promise.all(promises)
 		.then(values => {
 			var allMembers = values[0];
 			var allEntries = values[1];
+			var allAwols = values[2];
 
-			var absenses = allMembers.filter(function(member){
+			// get absences my filtering entries for lack of member id
+			var absences = allMembers.filter(function(member){
 				
 				var entries = allEntries.filter(function(entry){
 					console.log([entry.ad_id, member.id])
@@ -34,8 +43,20 @@ router.get('/all', roles.can('access admin'), function(req, res) {
 
 			})
 
-			res.json(absenses)
+			// get awol ad_ids
+			var awolAdIds = allAwols.map(awol => awol.ad_id);
+
+			// append awol status
+			var absencesWithAwolStatus = absences.map(absence => {
+				absence.awol = (awolAdIds.indexOf(absence.id) > -1)
+				return absence
+			})
+
+			res.json(absencesWithAwolStatus)
 		})
+		.catch(function(err) {
+		  console.log(err.message);
+		});
 
 })
 

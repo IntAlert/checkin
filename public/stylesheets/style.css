@@ -51,3 +51,12 @@ header .date {
 	margin-top:18px;
 	font-size: 18px;
 }
+
+
+/*Absence*/
+.toolbar {
+	padding:1em;
+}
+.absences .unexplained {
+	background: pink;
+}

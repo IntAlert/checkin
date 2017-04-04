@@ -5,23 +5,28 @@ block content
 	div(ng-controller="AdminController")
 
 
-		div()
-			md-datepicker(
-				ng-model="data.date" 
-				md-placeholder="Select a date"
-			)
-
-			md-list(ng-hide="data.loading")
-				md-list-item(
-
-					ng-repeat="user in data.usersAbsent"
-				)
-					div.person(
-						layout="row"
-						flex
-						ng-click="showConfirm($event, user)"
+		div(flex)
+			div.toolbar(layout="columm")
+				div.choose-date(flex)
+					md-datepicker(
+						ng-model="data.date" 
+						md-placeholder="Select a date"
 					)
+				div.export
+					md-button.md-raised.md-primary(
+						ng-click="downloadLastMonthCSV()"
+				) Download last month's of Unexplained Absence
 
-						p(flex="70") {{ user.displayName }}
-						p(flex="10") {{ user.id }}
-						p(flex="10") {{ user.awol ? 'Unexplained' : 'Normal' }}
+			md-list.absences(ng-hide="data.loading")
+				md-list-item(
+					ng-repeat="user in data.usersAbsent"
+					class="{{user.awol ? 'unexplained':''}}"
+				)					
+
+					p(flex="70") {{ user.displayName }}
+
+					div(flex="30")
+						md-checkbox(
+							ng-change="updateAwolStatus(user)"
+							ng-model="user.awol"
+						) Unexplained Absence

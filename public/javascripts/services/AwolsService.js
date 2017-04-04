@@ -18,18 +18,8 @@ app.factory('AwolsService', function($http) {
 		.then(response => response.data)
 	}
 
-	instance.getByDate = function(date) {
-		return $http.get('/awols/byDate', {
-			params: {
-				date: moment(date).format('YYYY-MM-DD')
-			}
-		})
-		.then(response => response.data)
-	}
-
-	instance.getLastMonthCSV = function(date) {
-		return $http.get('/awols/lastMonthCsv')
-		.then(response => response.data)
+	instance.getLastMonthCSVLink = function(date) {
+		return '/awols/lastMonthCsv'
 	}
 
 	return instance;

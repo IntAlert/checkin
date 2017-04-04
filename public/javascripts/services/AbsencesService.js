@@ -4,7 +4,9 @@ app.factory('AbsencesService', function($http) {
 
 	instance.getByDate = function(date) {
 		return $http.get('/absences/all', {
-			date: moment(date).format('YYYY-MM-DD')
+			params: {
+				date: moment(date).format('YYYY-MM-DD')
+			}
 		})
 		.then(response => response.data)
 	}

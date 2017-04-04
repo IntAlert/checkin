@@ -1,3 +1,7 @@
 var app = angular
-	// .module('signinbook', ['ngMaterial', 'ngMessages']);
-	.module('signinbook', ['ngMaterial']);
+	.module('signinbook', ['ngMaterial'])
+	.config(function($mdDateLocaleProvider) {
+	    $mdDateLocaleProvider.formatDate = function(date) {
+	       return moment(date).format('DD/MM/YYYY');
+	    };
+	});

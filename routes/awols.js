@@ -77,7 +77,7 @@ router.get('/lastMonthCsv', roles.can('access admin'), function(req, res) {
 	var lastMonthAwolQuery = {
 		where: {
 			date: {
-				$gt: moment().subtract(1,'months').format('YYYY-MM-DD'),	
+				$gt: moment().subtract(1,'months').format('YYYY-MM-DD'),
 			}	
 		},
 		order: 'date ASC'
@@ -116,11 +116,16 @@ router.get('/lastMonthCsv', roles.can('access admin'), function(req, res) {
 			// produce an array CSV 
 			var awolsDecoratedCsv = awolsDecorated.map(function(member){
 				return [
-					member.date,
+					moment(member.date).format('DD/MM/YYYY'),
 					member.displayName,
 					member.mail
 				]
 			})
+
+			// Add headers
+			awolsDecoratedCsv.unshift(['Date', 'Name', 'Email']);
+
+			// respond
 			res.csv(awolsDecoratedCsv)
 		})
 	
