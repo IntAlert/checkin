@@ -52,7 +52,12 @@ router.get('/all', roles.can('access admin'), function(req, res) {
 				return absence
 			})
 
-			res.json(absencesWithAwolStatus)
+			// sort by name
+			var absencesWithAwolStatusSorted = absencesWithAwolStatus.sort((a,b) => {
+				return a.displayName < b.displayName ? -1:1;
+			})
+
+			res.json(absencesWithAwolStatusSorted)
 		})
 		.catch(function(err) {
 		  console.log(err.message);

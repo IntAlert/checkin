@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var roles = require('../config/authorisation')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', roles.can('access admin'), function(req, res, next) {
   
-  res.render('admin/index', roles.can('access admin'), {title: "Admin: Absences"});
+  res.render('admin/index', {title: "Admin: Absences"});
 
 });
 
