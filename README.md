@@ -1,5 +1,7 @@
 # Sign-in book for Alert
+An app to allow staff to check in via a tablet at the entrances of the building.
 
+The app also has an admin section that allows an admistrator (in a group that matches O365_ADMIN_GROUP_ID) to report and export unexplained absences.
 
 ## Development
 
@@ -28,6 +30,7 @@ Requirements
 	O365_CLIENT_SECRET=*
 	O365_TOKEN_ENDPOINT=*
 	O365_GROUP_ID=*
+	O365_ADMIN_GROUP_ID="*"
 	```
 5. `npm run dev`
 6. Visit `http://127.0.0.1:3000/`
