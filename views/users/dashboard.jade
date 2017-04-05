@@ -21,3 +21,6 @@ block content
 					p(flex="70") {{ user.displayName }}
 					p(flex="15") {{ user.updatedAt | date:'HH:mm:ss' }}
 					p.status(flex="15") {{user.in ? 'In' : 'Out'}}
+
+		div.dashboard-logout(ng-show="data.users.length")
+			md-button.md-raised.md-warn(ng-href="/auth/logout") Logout

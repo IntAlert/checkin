@@ -13,9 +13,19 @@ block content
 						md-placeholder="Select a date"
 					)
 				div.export
-					md-button.md-raised.md-primary(
+					md-button.md-raised(
 						ng-click="downloadLastMonthCSV()"
-				) Download last month's of Unexplained Absence
+					) Download last month of Unexplained Absence
+					
+					md-button.md-raised(
+						href="/users/dashboard"
+					) Show Staff Dashboard
+					md-button.md-raised.md-primary(
+						ng-click="markAllAsAwol()"
+					) Mark all as Unexplained Absence
+					md-button.md-raised.md-warn(
+						href="/auth/logout"
+					) Log out
 
 			md-list.absences(ng-hide="data.loading")
 				md-list-item(
@@ -30,3 +40,4 @@ block content
 							ng-change="updateAwolStatus(user)"
 							ng-model="user.awol"
 						) Unexplained Absence
+			

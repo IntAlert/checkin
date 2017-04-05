@@ -58,15 +58,20 @@ module.exports = function(app) {
 	app.use(passport.initialize());  // for uauthentication/authorization
 	app.use(passport.session());  
 
-	/* GET callback. */
+	// Standard login
 	app.get('/auth/login', passport.authenticate('azure_ad_oauth2'));
 
 	app.get('/auth/callback', 
 	  passport.authenticate('azure_ad_oauth2', { failureRedirect: '/' }),
 	    function (req, res) {
 	      // Successful authentication, redirect home.
-	      res.redirect('/users/dashboard');
+	      if (req.user.isAdmin) res.redirect('/admin');
+	      else res.redirect('/users/dashboard');
 	});
 
+	app.get('/auth/logout', function(req, res){
+		req.logOut();
+		res.redirect('/');
+	});
 
 }

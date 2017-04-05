@@ -35,4 +35,12 @@ app.controller('AdminController', function ($scope, $window, $document, $locatio
 
 	}
 
+	$scope.markAllAsAwol = function() {
+		var dateMySQL = moment($scope.data.date).format('YYYY-MM-DD');
+		for (var i = 0; i < $scope.data.usersAbsent.length; i++) {
+			$scope.data.usersAbsent[i].awol = true
+			AwolsService.create($scope.data.usersAbsent[i].id, dateMySQL)
+		}
+	}
+
 });

@@ -22,7 +22,7 @@ a {
 	background: yellowgreen;
 }
 .content {
-	padding-top:150px;
+	padding-top:100px;
 }
 header {
 	text-align: center;
@@ -52,6 +52,10 @@ header .date {
 	font-size: 18px;
 }
 
+.dashboard-logout {
+	padding:200px;
+	text-align: center;
+}
 
 /*Absence*/
 .toolbar {
