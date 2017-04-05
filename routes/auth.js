@@ -1,8 +1,9 @@
+const dotenv = require('dotenv').config();
 var express = require('express');
 var office365Config = require('../config/office365');
 var passport = require('passport')
 var AzureAdOAuth2Strategy = require('passport-azure-ad-oauth2').Strategy;
-var members = require('../lib/o365/members.js');
+var graph = require('../lib/o365/graph.js');
 
 module.exports = function(app) {
 
@@ -20,27 +21,36 @@ module.exports = function(app) {
 	passport.use(new AzureAdOAuth2Strategy({
 	  clientID: office365Config.clientId,
 	  clientSecret: office365Config.clientSecret,
+	  authorizationURL: 'https://login.microsoftonline.com/common/oauth2/authorize',
 	  callbackURL: callbackURL,
-	  resource: 'https://graph.windows.net/',
+	  resource: 'https://graph.microsoft.com/',
 	  tenant: office365Config.tenantId
 	},
 	function (accessToken, refresh_token, params, profile, done) {
 
-		done(null, profile);
+		graph.getMyGroups(params.access_token)
+			.then(groups => {
+
+				var adminGroup = groups.find(function(group) {
+					return group.id == process.env.O365_ADMIN_GROUP_ID
+				})
+
+				var user = {
+					isAdmin: adminGroup != undefined,
+					isLoggedIn: true
+				}
+
+				done(null, user);
+			})
 
 	}));
 
 		
 	passport.serializeUser(function(user, done) {
-		
-		done(null, 1);
+		done(null, user);
 	});
 
-	passport.deserializeUser(function(id, done) {
-
-		var user = {
-			loggedIn: true
-		}
+	passport.deserializeUser(function(user, done) {
 		done(null, user);
 	});
 
@@ -52,10 +62,9 @@ module.exports = function(app) {
 	app.get('/auth/login', passport.authenticate('azure_ad_oauth2'));
 
 	app.get('/auth/callback', 
-	  passport.authenticate('azure_ad_oauth2', { failureRedirect: '/login' }),
+	  passport.authenticate('azure_ad_oauth2', { failureRedirect: '/' }),
 	    function (req, res) {
 	      // Successful authentication, redirect home.
-	      // console.log(req);
 	      res.redirect('/users/dashboard');
 	});
 
