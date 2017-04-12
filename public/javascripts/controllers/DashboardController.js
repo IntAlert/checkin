@@ -1,4 +1,4 @@
-app.controller('DashboardContoller', function ($scope, $window, $document, $location, $mdDialog, UsersService, EntriesService) {
+app.controller('DashboardContoller', function ($scope, $window, $document, $location, $mdDialog, $interval, UsersService, EntriesService) {
 
 
 
@@ -11,17 +11,23 @@ app.controller('DashboardContoller', function ($scope, $window, $document, $loca
 
 
 	// get all users
-	UsersService.getAll()
+
+	function getUsers() {
+		UsersService.getAll()
 		.then(users => {
 			$scope.data.users = users
-		})
+		})	
+	}
+
+	getUsers()
+
+	$interval(getUsers, 1000 * 60 * 60)
+	
 
 
 	$scope.showConfirm = function(ev, user) {
 
 		keepPolling = false;
-
-		console.log(user)
 
 		if (user.in) {
 			// They are signing out
