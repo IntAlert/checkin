@@ -10,4 +10,9 @@ router.get('/fork', function(req, res, next) {
   res.render('fork', { title: 'Dashboard or Admin' });
 });
 
+
+router.get('/test500', function(req, res, next) {
+  res.status(500).send('Something broke!')
+});
+
 module.exports = router;
