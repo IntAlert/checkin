@@ -3,7 +3,7 @@ app.controller('DashboardContoller', function ($scope, $window, $document, $loca
 
 	// settings
 	var UserPollInterval = 1000 * 60 * 60;
-	var EntryStatusPollInterval = 3000;
+	var EntryStatusPollInterval = 5000;
 
 
 	var keepPollingEntryStatuses = false;
@@ -51,12 +51,15 @@ app.controller('DashboardContoller', function ($scope, $window, $document, $loca
 		
 
 	    // Appending dialog to document.body to cover sidenav in docs app
-	    var confirm = $mdDialog.confirm()
-	          .title(user.displayName)
-	          .textContent(textContent)
-	          .targetEvent(ev)
-	          .ok(okText)
-	          .cancel('Cancel');
+	    var confirm = $mdDialog.confirm({
+				title:user.displayName,
+				textContent: textContent,
+				targetEvent: ev,
+				ok: okText,
+				cancel: "Cancel",
+				parent: angular.element(document.body),
+				fullscreen: true
+			});
 
 	    $mdDialog.show(confirm).then(function() {
 	    	// confirmed
@@ -64,13 +67,37 @@ app.controller('DashboardContoller', function ($scope, $window, $document, $loca
 	    		// allow polling to recommence once the change has been made
 	    		// this prevents a race condition between the local data and poll results
 	    		// which can cause a flicker between in/out
-	    		keepPollingEntryStatuses = true;	
-	    	})
+	    		keepPollingEntryStatuses = true;
+	    	}).catch( () => {
+					showError()
+				})
 	    }, function() {
 	    	// cancelled
 	    	keepPollingEntryStatuses = true;
 	    });
 	  };
+
+
+	const showError = function(ev) {
+
+		keepPollingEntryStatuses = false;
+
+		// Appending dialog to document.body to cover sidenav in docs app
+		var confirm = $mdDialog.alert({
+			title: 'Error',
+			textContent: 'Sorry - there has been error. Please contact the Tech department',
+			ok: 'Close',
+			parent: angular.element(document.body),
+			fullscreen: true
+		});
+
+		$mdDialog.show(confirm).then(function() {
+			// confirmed
+			return toggle(user).then( () => {
+				keepPollingEntryStatuses = true;	
+			})
+		});
+	};
 
 	var toggle = function(user){
 
@@ -84,6 +111,11 @@ app.controller('DashboardContoller', function ($scope, $window, $document, $loca
 
 
 	var pollEntryStatus = function() {
+
+		// avoid pileups
+		keepPollingEntryStatuses = false
+
+
 		EntriesService.getStatuses().then(statuses => {
 
 			// append in/out status to the users array
@@ -103,6 +135,10 @@ app.controller('DashboardContoller', function ($scope, $window, $document, $loca
 					$scope.data.users[i].updatedAt = null
 				}
 			}
+
+
+			// allow polling to happen
+			keepPollingEntryStatuses = true
 		})	
 	}
 
